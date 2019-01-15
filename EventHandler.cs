@@ -74,7 +74,14 @@ namespace MOTD
 		{
 			foreach (KeyValuePair<string, uint> entry in msglist)
 			{
-				ev.Player.PersonalBroadcast(entry.Value, entry.Key, false);
+				string tempmsg = entry.Key;
+				tempmsg = tempmsg.Replace("$finalServerName", PluginManager.Manager.Server.Name);
+				tempmsg = tempmsg.Replace("$finalPlayerListTitle", PluginManager.Manager.Server.PlayerListTitle);
+				tempmsg = tempmsg.Replace("$curPlayerCount", "" + PluginManager.Manager.Server.NumPlayers);
+				tempmsg = tempmsg.Replace("$roundDurSec", "" + PluginManager.Manager.Server.Round.Duration);
+				tempmsg = tempmsg.Replace("$roundDurMin", "" + PluginManager.Manager.Server.Round.Duration/60);
+
+				ev.Player.PersonalBroadcast(entry.Value, tempmsg, false);
 			}
 
 			//PluginManager.Manager.EnabledPlugins[1].Details;
