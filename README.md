@@ -1,2 +1,3 @@
 # SCPSL_Smod_MOTD
-a customizable message that displays when a player connects to your server.
+Inspired / continuation of https://github.com/MrMith/PluginInfo
+check wiki tab for usage instructions.
