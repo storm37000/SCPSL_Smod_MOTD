@@ -44,7 +44,7 @@ namespace MOTD
 				string tempmsg = entry.Key;
 				foreach (string config in EnclosedStrings(entry.Key,"$S[","]"))//strings
 				{
-					tempmsg = tempmsg.Replace("$S[" + config + "]", ConfigManager.Manager.Config.GetStringValue(config," - "));
+					tempmsg = tempmsg.Replace("$S[" + config + "]", ConfigManager.Manager.Config.GetStringValue(config,"-"));
 				}
 				foreach (string config in EnclosedStrings(entry.Key, "$I[", "]"))//integers
 				{
@@ -67,6 +67,19 @@ namespace MOTD
 //					tempmsg = tempmsg.Replace("$IL[" + config + "]", "");
 //				}
 				msglist.Add(tempmsg, time);
+			}
+			if (plugin.GetConfigBool("motd_printplugins"))
+			{
+				msglist.Add("This Server is Running Smod " + PluginManager.SMOD_MAJOR + "." + PluginManager.SMOD_MINOR + "." + PluginManager.SMOD_REVISION + "-" + PluginManager.SMOD_BUILD + " with plugins: ", 5);
+				string fmt = plugin.GetConfigString("motd_printpluginsformat");
+				foreach (Plugin plugin in PluginManager.Manager.EnabledPlugins)
+				{
+					fmt = fmt.Replace("$name", plugin.Details.name);
+					fmt = fmt.Replace("$version", plugin.Details.version);
+					fmt = fmt.Replace("$author", plugin.Details.author);
+					fmt = fmt.Replace("$description", plugin.Details.description);
+					msglist.Add(fmt, 5);
+				}
 			}
 		}
 
