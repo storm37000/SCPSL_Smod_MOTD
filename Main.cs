@@ -65,7 +65,7 @@ namespace MOTD
 			this.AddConfig(new Smod2.Config.ConfigSetting("motd_printplugins", true , Smod2.Config.SettingType.BOOL, true, "Print to players the list of plugins including basic info."));
 			this.AddConfig(new Smod2.Config.ConfigSetting("info_ignoredplugin", new string[]{}, Smod2.Config.SettingType.LIST, true, "Plugins to hide from being displayed.  Backwards compat with PluginInfo."));
 			this.AddConfig(new Smod2.Config.ConfigSetting("motd_ignoredplugins", new string[]{}, Smod2.Config.SettingType.LIST, true, "Plugins to hide from being displayed"));
-			this.AddConfig(new Smod2.Config.ConfigSetting("motd_printpluginsformat", "<size=25%>$name $version by $author - '$description'</size>", Smod2.Config.SettingType.STRING, true, "Format for plugin printouts."));
+			this.AddConfig(new Smod2.Config.ConfigSetting("motd_printpluginsformat", "<size=25%><color='yellow'>$name</color> $version by $author - '$description'</size>", Smod2.Config.SettingType.STRING, true, "Format for plugin printouts."));
 		}
 	}
 }

@@ -71,9 +71,10 @@ namespace MOTD
 			if (plugin.GetConfigBool("motd_printplugins"))
 			{
 				msglist.Add("This Server is Running Smod " + PluginManager.SMOD_MAJOR + "." + PluginManager.SMOD_MINOR + "." + PluginManager.SMOD_REVISION + "-" + PluginManager.SMOD_BUILD + " with plugins: ", 5);
-				string fmt = plugin.GetConfigString("motd_printpluginsformat");
+				string fmttmp = plugin.GetConfigString("motd_printpluginsformat");
 				foreach (Plugin plugin in PluginManager.Manager.EnabledPlugins)
 				{
+					string fmt = fmttmp;
 					fmt = fmt.Replace("$name", plugin.Details.name);
 					fmt = fmt.Replace("$version", plugin.Details.version);
 					fmt = fmt.Replace("$author", plugin.Details.author);
