@@ -76,13 +76,43 @@ namespace MOTD
 				string[] ignorelist = plugin.GetConfigList("motd_ignoredplugins");
 				foreach (Plugin plugin in PluginManager.Manager.EnabledPlugins)
 				{
-					if ((ignorelist_legacy.Length > 0 && System.Array.IndexOf(ignorelist_legacy, plugin.Details.name) != -1) || (ignorelist.Length > 0 && System.Array.IndexOf(ignorelist, plugin.Details.name) != -1)) { continue; }
-					string fmt = fmttmp;
-					fmt = fmt.Replace("$name", plugin.Details.name);
-					fmt = fmt.Replace("$version", plugin.Details.version);
-					fmt = fmt.Replace("$author", plugin.Details.author);
-					fmt = fmt.Replace("$description", plugin.Details.description);
-					msglist.Add(fmt, 5);
+					bool shouldIgnore = false;
+					foreach (string item in ignorelist_legacy)
+					{
+						if (item == plugin.Details.name)
+						{
+							shouldIgnore = true;
+							break;
+						}
+					}
+					foreach (string item in ignorelist)
+					{
+						if (item.Contains("."))
+						{
+							if (item == plugin.Details.id)
+							{
+								shouldIgnore = true;
+								break;
+							}
+						}
+						else
+						{
+							if (item == plugin.Details.name)
+							{
+								shouldIgnore = true;
+								break;
+							}
+						}
+					}
+					if (!shouldIgnore)
+					{
+						string fmt = fmttmp;
+						fmt = fmt.Replace("$name", plugin.Details.name);
+						fmt = fmt.Replace("$version", plugin.Details.version);
+						fmt = fmt.Replace("$author", plugin.Details.author);
+						fmt = fmt.Replace("$description", plugin.Details.description);
+						msglist.Add(fmt, 5);
+					}
 				}
 			}
 		}
