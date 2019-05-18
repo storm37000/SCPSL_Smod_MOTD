@@ -31,6 +31,10 @@ namespace MOTD
 
 		public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
 		{
+			if (!plugin.UpToDate)
+			{
+				plugin.outdatedmsg();
+			}
 			msglist.Clear();
 			Dictionary<string, string> tempdict = plugin.GetConfigDict("motd_messages");
 			foreach (KeyValuePair<string, string> entry in tempdict)
