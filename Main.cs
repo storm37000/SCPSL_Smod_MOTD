@@ -32,7 +32,7 @@ namespace MOTD
 
 		public void outdatedmsg()
 		{
-			this.Error("Your version is out of date, please update the plugin and restart your server when it is convenient for you." + Smod2.ConfigManager.Manager.Config.GetConfigPath());
+			this.Error("Your version is out of date, please update the plugin and restart your server when it is convenient for you.");
 		}
 
 		IEnumerator<float> UpdateChecker()
