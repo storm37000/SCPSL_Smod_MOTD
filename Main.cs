@@ -80,20 +80,21 @@ namespace MOTD
 			this.AddConfig(new Smod2.Config.ConfigSetting("motd_ignoredplugins", new string[]{}, Smod2.Config.SettingType.LIST, true, "Plugins to hide from being displayed"));
 			this.AddConfig(new Smod2.Config.ConfigSetting("motd_printpluginsformat", "<size=25%><color='yellow'>$name</color> $version by $author - '$description'</size>", Smod2.Config.SettingType.STRING, true, "Format for plugin printouts."));
 
-			string confdir = Smod2.ConfigManager.Manager.Config.GetConfigPath();
-			int index = confdir.LastIndexOf("/");
-			if (index > 0)
+			try
 			{
-				confdir = confdir.Substring(0, index); // or index + 1 to keep slash
+				string file = System.IO.Directory.GetFiles(System.IO.Path.GetDirectoryName(Smod2.ConfigManager.Manager.Config.GetConfigPath()), "s37k_g_disableVcheck*", System.IO.SearchOption.TopDirectoryOnly).FirstOrDefault();
+				if (file == null)
+				{
+					Timing.RunCoroutine(UpdateChecker());
+				}
+				else
+				{
+					this.Info("Version checker is disabled.");
+				}
 			}
-			string file = System.IO.Directory.GetFiles(confdir, "s37k_g_disableVcheck*", System.IO.SearchOption.TopDirectoryOnly).FirstOrDefault();
-			if (file == null)
+			catch (System.Exception)
 			{
 				Timing.RunCoroutine(UpdateChecker());
-			}
-			else
-			{
-				this.Info("Version checker is disabled.");
 			}
 		}
 	}
